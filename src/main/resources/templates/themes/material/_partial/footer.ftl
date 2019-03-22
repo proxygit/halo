@@ -28,4 +28,12 @@
         </div>
     </div>
     </#if>
+    <!-- waifu-tips.js 依赖 JQuery 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+    <!-- 实现拖动效果，需引入 JQuery UI -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+
+    <!-- 使用 aotuload.js 引入看板娘 -->
+    <script src="https://cj.czx.me/assets/autoload.js"></script>
 </footer>
