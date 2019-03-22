@@ -3,9 +3,11 @@ package cc.ryanc.halo.repository;
 import cc.ryanc.halo.model.domain.Category;
 import cc.ryanc.halo.model.domain.Post;
 import cc.ryanc.halo.model.domain.Tag;
+import cc.ryanc.halo.repository.base.BaseRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -20,7 +22,7 @@ import java.util.List;
  * @author : RYAN0UP
  * @date : 2017/11/14
  */
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends BaseRepository<Post, Long>, JpaSpecificationExecutor<Post> {
 
     /**
      * 查询前五条文章
@@ -37,28 +39,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      * @return List
      */
     List<Post> findPostsByPostType(String postType);
-
-    /**
-     * 模糊查询
-     *
-     * @param postType0   postType0
-     * @param postStatus0 postStatus0
-     * @param postTitle   postTitle
-     * @param postType1   postType1
-     * @param postStatus1 postStatus1
-     * @param postContent postContent
-     * @param pageable    pageable
-     * @return Page
-     */
-    Page<Post> findByPostTypeAndPostStatusAndPostTitleLikeOrPostTypeAndPostStatusAndPostContentLike(
-            String postType0,
-            Integer postStatus0,
-            String postTitle,
-            String postType1,
-            Integer postStatus1,
-            String postContent,
-            Pageable pageable
-    );
 
     /**
      * 根据文章的状态查询 分页

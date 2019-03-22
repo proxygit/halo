@@ -4,8 +4,11 @@ import cc.ryanc.halo.model.domain.Category;
 import cc.ryanc.halo.model.domain.Post;
 import cc.ryanc.halo.model.domain.Tag;
 import cc.ryanc.halo.model.dto.Archive;
+import cc.ryanc.halo.service.base.CrudService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
@@ -20,23 +23,7 @@ import java.util.Optional;
  * @author : RYAN0UP
  * @date : 2017/11/14
  */
-public interface PostService {
-
-    /**
-     * 新增文章
-     *
-     * @param post Post
-     * @return Post
-     */
-    Post save(Post post);
-
-    /**
-     * 根据编号删除文章
-     *
-     * @param postId postId
-     * @return Post
-     */
-    Post remove(Long postId);
+public interface PostService extends CrudService<Post, Long> {
 
     /**
      * 修改文章状态
@@ -69,9 +56,11 @@ public interface PostService {
      * @param postType   文章类型
      * @param postStatus 文章状态
      * @param pageable   分页信息
-     * @return Page
+     * @return a page of posts
      */
-    Page<Post> searchPosts(String keyword, String postType, Integer postStatus, Pageable pageable);
+    @NonNull
+    Page<Post> searchPosts(@Nullable String keyword, @Nullable String postType, @Nullable Integer postStatus, @NonNull Pageable pageable);
+
 
     /**
      * 根据文章状态查询 分页，用于后台管理
@@ -100,13 +89,6 @@ public interface PostService {
      */
     List<Post> findPostByStatus(Integer status, String postType);
 
-    /**
-     * 根据编号查询文章
-     *
-     * @param postId postId
-     * @return Post
-     */
-    Optional<Post> findByPostId(Long postId);
 
     /**
      * 根据编号和类型查询文章
@@ -247,22 +229,6 @@ public interface PostService {
      * @return 文章数量
      */
     Integer getCountByStatus(Integer status);
-
-    /**
-     * 生成rss
-     *
-     * @param posts posts
-     * @return String
-     */
-    String buildRss(List<Post> posts);
-
-    /**
-     * 生成sitemap
-     *
-     * @param posts posts
-     * @return String
-     */
-    String buildSiteMap(List<Post> posts);
 
     /**
      * 缓存阅读数
