@@ -1,5 +1,5 @@
 FROM maven:3-jdk-8-alpine
-LABEL maintainer="Ryan Wang<i@ryanc.cc>"
+LABEL maintainer="hey cmm<i@orcl.cc>"
 
 WORKDIR /opt/halo
 ADD . /tmp
