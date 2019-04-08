@@ -73,22 +73,23 @@
 
     }
     function translation(){
+        document.getElementById("tab1").style.display="";
         var url="/tools/translation";
         var keyword =$("#keyword").val();
+        $("#explains").html('');
+        $("#web").html('')
+        $("#phonetic").html('')
         $.post(url,{"keyword":keyword},function (data) {
-            console.log(data);
-            console.log("____________");
-            console.log(data.translation);
-           var basic= data.basic;//词义，基本词典,查词时才有
+            //console.log(data);
+            var basic= data.basic;//词义，基本词典,查词时才有
            var web= data.web;//词义，网络释义，该结果不一定存在
-           var l= data.l;//源语言和目标语言,一定存在
-           var us= basic.us-phonetic//美式音标，英文查词成功，一定存在
-           var phonetic= basic.phonetic//默认音标，默认是英式音标，英文查词成功，一定存在
-           var uk= basic.uk-phonetic//英式音标，英文查词成功，一定存在
-           var ukSpeech= basic.uk-speech//英式音标，英文查词成功，一定存在
-           var usSpeech= basic.us-speech//美式发音，英文查词成功，一定存在
 
             if (basic!=null){
+                var phonetic= basic.phonetic//默认音标，默认是英式音标，英文查词成功，一定存在
+                if (phonetic!=null){
+                    $("#phonetic").html(phonetic)
+                    //console.log(phonetic);
+                }
                 var list=  basic.explains;//基本释义
                 var str="";
                 for (var i = 0; i < list.length; i++) {
@@ -96,10 +97,20 @@
                     str+="  "+listElement;
                 }
             } else {
-                str="无法翻译火星文"
+                str=data.translation;//词查不到就查句子
             }
 
-         $("#result2").html(str);
+            if (web!=null){
+                $("#web").html(web)
+            }
+
+            var tSpeakUrl=data.tSpeakUrl;
+            var speakUrl=data.speakUrl;
+            $('#tSpeakUrl').attr('src',tSpeakUrl);
+            $('#speakUrl').attr('src',tSpeakUrl);
+            console.log(tSpeakUrl);
+             console.log(speakUrl);
+            $("#explains").html(str);
         },"json")
     }
 </script>
@@ -120,10 +131,36 @@
     <div class="categorys-item">
         <h1>翻译</h1>
             <input type="text" id="keyword"/>
-        <a onclick="translation()">提交</a>
-        <div id="result2">
-
+        <a onclick="translation()">提交</a><br/>
+      <#--  基本:<div id="explains"></div><br/>
+        音标:<div id="phonetic"></div><br/>
+        网络:<div id="web"></div><br/>-->
+    </div>
+    <div id="tab1"  style="display: none" class="post-list-item">
+        <div class="post-list-item-container">
+            <div class="item-label">
+                <div id="explains" class="item-title"></div>
+                <div class="item-title"  id="phonetic"> </div>
+                <div class="item-title"  id="web"> </div>
+                <audio id="fry_audio" src="" controls="controls">
+                </audio>
+                <audio id="speakUrl" src="" controls="controls">
+                </audio>
+            </div>
         </div>
     </div>
 </div>
+<#--<div class="main-content archive-page clearfix">
+    <div class="categorys-item">
+                <div class="categorys-item">
+                        <div class="post-lists">
+                            <div class="post-lists-body">
+                              <!--&ndash;&gt;
+
+                                <!--&ndash;&gt;
+                            </div>
+                        </div>
+                </div>
+    </div>
+</div>-->
 <#include "footer.ftl">

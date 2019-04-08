@@ -34,7 +34,7 @@ public class FrontTollsController extends BaseController {
         return this.render("tools");
     }
 
-    private static Logger logger = LoggerFactory.getLogger(FrontTollsController.class);
+    //private static Logger logger = LoggerFactory.getLogger(FrontTollsController.class);
 
     private static final String YOUDAO_URL = "http://openapi.youdao.com/api";
 
@@ -67,7 +67,7 @@ public class FrontTollsController extends BaseController {
         params.put("sign", sign);
         /** 处理结果 */
         String json = requestForHttp(YOUDAO_URL, params);
-        System.out.println(json);
+       // System.out.println(json);
         return json;
     }
 
@@ -90,11 +90,11 @@ public class FrontTollsController extends BaseController {
         CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
         try{
             Header[] contentType = httpResponse.getHeaders("Content-Type");
-            logger.info("Content-Type:" + contentType[0].getValue());
+            //logger.info("Content-Type:" + contentType[0].getValue());
             HttpEntity httpEntity = httpResponse.getEntity();
             String json = EntityUtils.toString(httpEntity,"UTF-8");
             EntityUtils.consume(httpEntity);
-            logger.info(json);
+            //logger.info(json);
             return json;
         }finally {
             try{
@@ -102,7 +102,7 @@ public class FrontTollsController extends BaseController {
                     httpResponse.close();
                 }
             }catch(IOException e){
-                logger.info("## release resouce error ##" + e);
+               // logger.info("## release resouce error ##" + e);
             }
         }
     }
@@ -146,7 +146,7 @@ public class FrontTollsController extends BaseController {
             fos.write(result);
 
         }catch (Exception e){
-            logger.info(e.toString());
+            //logger.info(e.toString());
         }finally {
             if(fos != null){
                 try {
