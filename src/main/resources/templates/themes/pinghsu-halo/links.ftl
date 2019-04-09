@@ -79,6 +79,10 @@
         font-size: 20px;
         line-height: 50px;
     }
+    .md-links-linkDesc{
+        word-break: break-all;
+        white-space: normal;
+    }
 
     #scheme-Paradox .mdl-mini-footer {
         clear: left;
@@ -112,9 +116,9 @@
                     <#list links as link>
                         <li class="md-links-item">
                             <a href="${link.linkUrl}" title="${link.linkName}" target="_blank">
-                                <img src="${link.linkPic}" alt="${link.linkName}" height="72px"/>
+                                <img src="${link.linkPic}" alt="${link.linkName}"  width="40px" height="40px"/>
                                 <span class="md-links-title">${link.linkName}</span><br/>
-                                <span>${link.linkDesc!}</span>
+                                <span class="md-links-linkDesc">${link.linkDesc!}</span>
                             </a>
                         </li>
                     </#list>

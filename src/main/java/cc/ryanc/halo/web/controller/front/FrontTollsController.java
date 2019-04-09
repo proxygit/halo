@@ -34,13 +34,11 @@ public class FrontTollsController extends BaseController {
         return this.render("tools");
     }
 
-    //private static Logger logger = LoggerFactory.getLogger(FrontTollsController.class);
-
     private static final String YOUDAO_URL = "http://openapi.youdao.com/api";
 
-    private static final String APP_KEY = "";
+    private static final String APP_KEY = "048b4125faaba9e2";
 
-    private static final String APP_SECRET = "";
+    private static final String APP_SECRET = "vbb6AoLJaNAuLy3Krq2A9G2HrG4jwxSm";
 
     /**
      * 网易api翻译工具
@@ -54,8 +52,8 @@ public class FrontTollsController extends BaseController {
         Map<String,String> params = new HashMap<String,String>();
         //String q = "卫生信息数据";
         String salt = String.valueOf(System.currentTimeMillis());
-        params.put("from", "EN");
-        params.put("to", "zh-CHS");
+        params.put("from", "auto");
+        params.put("to", "auto");
         params.put("signType", "v3");
         String curtime = String.valueOf(System.currentTimeMillis() / 1000);
         params.put("curtime", curtime);
